@@ -1,13 +1,53 @@
+/* Style pour le corps de la page */
 body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Style pour le titre h1 */
+h1 {
+  color: #333;
+  text-align: center;
+  margin: 20px 0;
+}
+
+/* Style pour la liste de destinations */
+.destination-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* Style pour chaque élément de la liste de destinations */
+.destination-item {
+  border: 1px solid #ccc;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Style pour le nom de la destination */
+.destination-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Styles pour la description de la destination */
+.destination-description {
+  margin-bottom: 10px;
+}
+
+/* Styles pour la durée de la destination */
+.destination-duration {
+  font-style: italic;
+}
+
+
+.destination-image {
+  width: 200px;
+
+  height: 200px;
+  margin-right: 5px;
+
 }
