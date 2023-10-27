@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Col, Row } from 'react-bootstrap';
 import ReservationPopup from './reservation/ReservationPopup';
+import { Link } from 'react-router-dom';
 
 function HomePage() {
     const [destinations, setDestinations] = useState([]);
@@ -26,9 +27,9 @@ function HomePage() {
     const handleReservation = () => {
         try {
         } catch (error) {
-          console.error('Error while marking attendance:', error);
+            console.error('Error while marking attendance:', error);
         }
-      };
+    };
 
     useEffect(() => {
         fetch('http://localhost:4000/api/destinations/destination', { method: 'GET', mode: 'cors' })
@@ -55,18 +56,22 @@ function HomePage() {
                 <Row xs={1} md={2} className="justify-content-center">
                     {destinations.map((destination) => (
                         <Col key={destination._id}>
+
                             <Card className="w-100 h-100 d-flex flex-column justify-content-center align-items-center">
-                                <Card.Body className="text-center">
-                                    <Card.Title>{destination.name}</Card.Title>
-                                    <Card.Text>{destination.description}</Card.Text>
-                                </Card.Body>
-                                <div className="d-flex justify-content-center align-items-center" style={{ maxWidth: '500px', maxHeight: '500px' }}>
-                                    <Card.Img
-                                        variant="top"
-                                        style={{ maxWidth: '500px', maxHeight: '500px' }}
-                                        src={destination.imageUrl}
-                                    />
-                                </div>
+                                <Link to={`/destination/${destination._id}`}>
+                                    <Card.Body className="text-center">
+                                        <Card.Title>{destination.name}</Card.Title>
+                                        <Card.Text>{destination.description}</Card.Text>
+                                    </Card.Body>
+
+                                    <div className="d-flex justify-content-center align-items-center" style={{ maxWidth: '500px', maxHeight: '500px' }}>
+                                        <Card.Img
+                                            variant="top"
+                                            style={{ maxWidth: '500px', maxHeight: '500px' }}
+                                            src={destination.imageUrl}
+                                        />
+                                    </div>
+                                </Link>
                                 <Button variant="outline-primary" onClick={() => openModal(destination)}>
                                     Participer à un voyage
                                 </Button>
@@ -79,13 +84,14 @@ function HomePage() {
                                     onClose={() => setShowModals(false)}
                                 />
                             </Card>
+
                         </Col>
                     ))}
                 </Row>
             )}
         </div>
     );
-    
+
 }
 
 export default HomePage;
