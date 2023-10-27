@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { useSignup } from '../hooks/useSignup';
+import { useNavigate } from "react-router-dom";
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -11,12 +12,17 @@ const SignupPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const navigate = useNavigate();
+
     const {signup, error, isLoading} = useSignup()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(nom, email, password);
         await signup(nom, email, password)
+        
+        if (!error) {
+            navigate('/'); 
+        }
     };
 
     return (
