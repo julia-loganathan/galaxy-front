@@ -43,12 +43,12 @@ function HomePage() {
 
     const handleReservation = async () => {
         try {
-            
+            console.log(user,'OK')
         } catch (error) {
             console.error('Erreur lors de la réservation:', error);
         }
     };
-
+    console.log(user,'OK')
     return (
         <div>
             <h1 className="text-center">Catalogue des destinations</h1>
@@ -78,7 +78,7 @@ function HomePage() {
                                             onHide={() => closeModal(destination)}
                                             destination={destination}
                                             nombrePlaces={nombrePlaces}
-                                            user={user.user._id}
+                                            user={user.id}
                                             dateDebutVoyage={dateDebutVoyage}
                                             onClose={() => setShowModals({ ...showModals, [destination._id]: false })}
                                             onReservation={handleReservation}

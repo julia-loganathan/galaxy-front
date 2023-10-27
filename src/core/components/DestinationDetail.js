@@ -75,7 +75,7 @@ function DestinationDetail({ }) {
                             onHide={() => closeModal(destination)}
                             destination={destination}
                             nombrePlaces={nombrePlaces}
-                            user={user.user._id}
+                            user={user.id}
                             dateDebutVoyage={dateDebutVoyage}
                             onClose={() => setShowModals({ ...showModals, [destination._id]: false })}
                             onReservation={handleReservation}
