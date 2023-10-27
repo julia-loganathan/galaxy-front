@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import DestinationDetail from './core/components/DestinationDetail';
 import HomePage from './core/pages/HomePage';
 
 
@@ -8,6 +9,7 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<HomePage></HomePage>} />
+        <Route path="/destination/:id" element={<DestinationDetail />} />
 
       </Routes>
 

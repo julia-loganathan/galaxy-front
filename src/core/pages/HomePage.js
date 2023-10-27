@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function HomePage() {
     const [destinations, setDestinations] = useState([]);
@@ -35,25 +36,29 @@ function HomePage() {
                 <div className="destination-list">
                     {destinations.map((destination) => (
                         <div key={destination._id} className="destination-item">
-                            <h2 className="destination-name">{destination.name}</h2>
-                            {destination.imageUrl && (
-                                <img
-                                    src={destination.imageUrl}
-                                    alt={destination.name}
-                                    className="destination-image"
-                                />
-                            )}
-                            <p className="destination-description">{destination.description}</p>
-                            <p className="destination-durée">{`Durée : ${destination.durée}`}</p>
+                            <Link to={`/destination/${destination._id}`}>
+                                <h2 className="destination-name">{destination.name}</h2>
+                                {destination.imageUrl && (
+                                    <img
+                                        src={destination.imageUrl}
+                                        alt={destination.name}
+                                        className="destination-image"
+                                    />
+                                )}
+                                <p className="destination-description">{destination.description}</p>
+                                <p className="destination-durée">{`Durée : ${destination.durée}`}</p>
 
-                            <button onClick={() => handleParticipateClick(destination)}>
-                                Participer à un voyage
-                            </button>
+                                <button onClick={() => handleParticipateClick(destination)}>
+                                    Participer à un voyage
+                                </button>
+                            </Link>
                         </div>
+
                     ))}
                 </div>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 }
 
