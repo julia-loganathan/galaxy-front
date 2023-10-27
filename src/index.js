@@ -6,22 +6,24 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 
+import { BrowserRouter } from 'react-router-dom';
+import { AuthContextProvider } from './core/context/AuthContext';
+
+
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
+root.render(
   <React.StrictMode>
-
-    <BrowserRouter>
-
-      <App />
-
-    </BrowserRouter>
-
+    <AuthContextProvider>
+      <BrowserRouter>
+        <App /> 
+      </BrowserRouter>
+    </AuthContextProvider>
   </React.StrictMode>,
-
-  document.getElementById('root')
 
 );
 
