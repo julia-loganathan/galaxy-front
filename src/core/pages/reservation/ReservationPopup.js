@@ -23,9 +23,9 @@ function ReservationPopup({ show, onHide, destination, onReservation, onClose })
           body: JSON.stringify(reservationData),
         });
 
-        if (response.status === 201) {
-          onReservation(destination, nombrePlaces, dateDebutVoyage);
+        if (response.status === 201) {          
           setShowValidationMessage(true);
+          onReservation(destination, nombrePlaces, dateDebutVoyage);
         } else {
           console.error('Échec de la réservation: ' + response.status);
         }

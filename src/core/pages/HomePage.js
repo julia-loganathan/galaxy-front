@@ -74,7 +74,6 @@ function HomePage() {
                                     show={showModals[destination._id] || false}
                                     onHide={() => closeModal(destination)}
                                     destination={destination}
-                                    onReservation={handleReservation}
                                     nombrePlaces={nombrePlaces}
                                     dateDebutVoyage={dateDebutVoyage}
                                     onClose={() => setShowModals(false)}
