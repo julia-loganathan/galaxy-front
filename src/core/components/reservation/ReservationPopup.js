@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 
-function ReservationPopup({ show, onHide, destination, onReservation, onClose }) {
+function ReservationPopup({ show, onHide, destination,user, onReservation, onClose }) {
     const [nombrePlaces, setNombrePlaces] = useState(1);
     const [dateDebutVoyage, setDateDebutVoyage] = useState('');
     const [showValidationMessage, setShowValidationMessage] = useState(false);
@@ -10,11 +10,12 @@ function ReservationPopup({ show, onHide, destination, onReservation, onClose })
     const handleReservation = async () => {
       try {
         const reservationData = {
+          user: user,
           voyage: destination._id,
           nombrePlaces: nombrePlaces,
           dateDebutVoyage: dateDebutVoyage,
         };
-    
+        console.log(reservationData)
         const response = await fetch('http://localhost:4000/reservations/', {
           method: 'POST',
           headers: {
@@ -25,7 +26,7 @@ function ReservationPopup({ show, onHide, destination, onReservation, onClose })
 
         if (response.status === 201) {          
           setShowValidationMessage(true);
-          onReservation(destination, nombrePlaces, dateDebutVoyage);
+          onReservation(user,destination, nombrePlaces, dateDebutVoyage);
         } else {
           console.error('Échec de la réservation: ' + response.status);
         }
@@ -61,15 +62,15 @@ function ReservationPopup({ show, onHide, destination, onReservation, onClose })
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={onHide}>
-                    Annuler
-                </Button>
                 {showValidationMessage ? (
                     <div className="validation-message">Votre réservation a été validée !</div>
-                ) : (
-                    <Button variant="primary" onClick={handleReservation}>
-                        Valider
-                    </Button>
+                ) : (<>
+                  <Button variant="secondary" onClick={onHide}>
+                      Annuler
+                  </Button>
+                  <Button variant="primary" onClick={handleReservation}>
+                      Valider
+                  </Button></>
                 )}
             </Modal.Footer>
         </Modal>
