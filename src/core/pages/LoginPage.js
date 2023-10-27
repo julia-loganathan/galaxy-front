@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+
+import { useLogin } from '../hooks/uselogin';
+
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
@@ -7,9 +10,11 @@ const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const {login, error, isLoading} = useLogin()
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(email, password);
+        await login(email, password)
     };
 
     return (
@@ -36,9 +41,10 @@ const LoginPage = () => {
                     />
                 </Form.Group>
 
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" disabled={isLoading}>
                     Se connecter
                 </Button>
+                {error && <p className="mt-2 text-danger">{error}</p>}
             </Form>
         </Container>
     );
