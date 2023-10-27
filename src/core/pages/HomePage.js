@@ -1,14 +1,34 @@
 import React, { useState, useEffect } from 'react';
+import { Button, Card, Col, Row } from 'react-bootstrap';
+import ReservationPopup from './reservation/ReservationPopup';
 import { Link } from 'react-router-dom';
 
 function HomePage() {
     const [destinations, setDestinations] = useState([]);
     const [error, setError] = useState(null);
+    const [reservations, setReservations] = useState([]);
+    const [user, setUser] = useState(null);
 
+    const [showModals, setShowModals] = useState({});
+    const [selectedDestination, setSelectedDestination] = useState(null);
+    const [nombrePlaces, setNombrePlaces] = useState(1);
+    const [dateDebutVoyage, setDateDebutVoyage] = useState('');
 
-    const handleParticipateClick = (destination) => {
+    const openModal = (destination) => {
+        setSelectedDestination(destination);
+        setShowModals({ ...showModals, [destination._id]: true });
+    };
 
-        console.log(`Participer à un voyage pour ${destination.name}`);
+    const closeModal = (destination) => {
+        setSelectedDestination(null);
+        setShowModals({ ...showModals, [destination._id]: false });
+    };
+
+    const handleReservation = () => {
+        try {
+        } catch (error) {
+            console.error('Error while marking attendance:', error);
+        }
     };
 
     useEffect(() => {
@@ -29,37 +49,50 @@ function HomePage() {
 
     return (
         <div>
-            <h1>Catalogue des destinations</h1>
+            <h1 className="text-center">Catalogue des destinations</h1>
             {error ? (
                 <p>Erreur : {error}</p>
             ) : (
-                <div className="destination-list">
+                <Row xs={1} md={2} className="justify-content-center">
                     {destinations.map((destination) => (
-                        <div key={destination._id} className="destination-item">
-                            <Link to={`/destination/${destination._id}`}>
-                                <h2 className="destination-name">{destination.name}</h2>
-                                {destination.imageUrl && (
-                                    <img
-                                        src={destination.imageUrl}
-                                        alt={destination.name}
-                                        className="destination-image"
-                                    />
-                                )}
-                                <p className="destination-description">{destination.description}</p>
-                                <p className="destination-durée">{`Durée : ${destination.durée}`}</p>
+                        <Col key={destination._id}>
 
-                                <button onClick={() => handleParticipateClick(destination)}>
+                            <Card className="w-100 h-100 d-flex flex-column justify-content-center align-items-center">
+                                <Link to={`/destination/${destination._id}`}>
+                                    <Card.Body className="text-center">
+                                        <Card.Title>{destination.name}</Card.Title>
+                                        <Card.Text>{destination.description}</Card.Text>
+                                    </Card.Body>
+
+                                    <div className="d-flex justify-content-center align-items-center" style={{ maxWidth: '500px', maxHeight: '500px' }}>
+                                        <Card.Img
+                                            variant="top"
+                                            style={{ maxWidth: '500px', maxHeight: '500px' }}
+                                            src={destination.imageUrl}
+                                        />
+                                    </div>
+                                </Link>
+                                <Button variant="outline-primary" onClick={() => openModal(destination)}>
                                     Participer à un voyage
-                                </button>
-                            </Link>
-                        </div>
+                                </Button>
+                                <ReservationPopup
+                                    show={showModals[destination._id] || false}
+                                    onHide={() => closeModal(destination)}
+                                    destination={destination}
+                                    onReservation={handleReservation}
+                                    nombrePlaces={nombrePlaces}
+                                    dateDebutVoyage={dateDebutVoyage}
+                                    onClose={() => setShowModals(false)}
+                                />
+                            </Card>
 
+                        </Col>
                     ))}
-                </div>
-            )
-            }
-        </div >
+                </Row>
+            )}
+        </div>
     );
+
 }
 
 export default HomePage;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 function DestinationDetail({ }) {
     const [destination, setDestination] = useState(null);
@@ -35,7 +35,7 @@ function DestinationDetail({ }) {
             <p>Étape : {destination.etape}</p>
             <p>Durée : {destination.durée}</p>
             <p>Prix personne/jour : {destination.prix_per_jour}</p>
-            <Link to="http://localhost:3000/">Retour à la liste des destinations</Link>
+
         </div>
     );
 }
